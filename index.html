@@ -40,19 +40,20 @@
     </form>
     <div id="message"></div>
 
-    <!-- 使用更可靠的CDN链接 -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.38.4/dist/umd/supabase.min.js"></script>
+    <!-- 方案二：使用官方CDN -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2.39.7"></script>
+    
     <script>
-        // 替换为你的Supabase项目信息（这两行必须修改！）
+        // 你的Supabase配置
         const SUPABASE_URL = 'https://ixdyntvyyldnwcaifqv.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publisible_kacvNfoE7AcK2B6mvSIXQ_t-MvL_';
         
-        // 初始化Supabase客户端
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // 初始化Supabase客户端 - 注意这里的写法
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // 处理表单提交
         document.getElementById('surveyForm').addEventListener('submit', async (event) => {
-            event.preventDefault(); // 阻止页面刷新
+            event.preventDefault();
 
             const formData = new FormData(event.target);
             const data = {
@@ -62,21 +63,18 @@
                 submitted_at: new Date().toISOString()
             };
 
-            // 显示提交中状态
             const messageEl = document.getElementById('message');
             messageEl.textContent = '正在提交...';
             messageEl.style.display = 'block';
             messageEl.style.background = '#fff3cd';
 
             try {
-                // 插入数据到Supabase
                 const { error } = await supabase
-                    .from('survey_responses') // 表名必须和Supabase中的一致
+                    .from('survey_responses')
                     .insert([data]);
 
                 if (error) throw error;
 
-                // 提交成功
                 messageEl.textContent = '✅ 提交成功！感谢您的反馈。';
                 messageEl.style.background = '#d4edda';
                 document.getElementById('surveyForm').reset();
