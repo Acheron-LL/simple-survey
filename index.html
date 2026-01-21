@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单问卷测试</title>
+    <style>
+        body { font-family: Arial; max-width: 500px; margin: 40px auto; padding: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #28a745; color: white; border: none; padding: 12px 20px; cursor: pointer; }
+        button:hover { background: #218838; }
+        #message { margin-top: 15px; padding: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <h1>📝 简单问卷测试</h1>
+    <form id="surveyForm">
+        <div class="form-group">
+            <label for="name">您的称呼（可选）：</label>
+            <input type="text" id="name" name="name" placeholder="如：张三">
+        </div>
+        <div class="form-group">
+            <label for="rating">您的满意度：*</label>
+            <select id="rating" name="rating" required>
+                <option value="">请选择</option>
+                <option value="5">非常满意 ⭐⭐⭐⭐⭐</option>
+                <option value="4">满意 ⭐⭐⭐⭐</option>
+                <option value="3">一般 ⭐⭐⭐</option>
+                <option value="2">不满意 ⭐⭐</option>
+                <option value="1">非常不满意 ⭐</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="feedback">您的意见或建议：</label>
+            <textarea id="feedback" name="feedback" rows="4" placeholder="请告诉我们您的想法..."></textarea>
+        </div>
+        <button type="submit">提交问卷</button>
+    </form>
+    <div id="message"></div>
+
+    <!-- 引入Supabase客户端库 -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        // 第二步：你需要在这里填入自己的 Supabase 项目信息
+        const SUPABASE_URL = 'https://你的项目编号.supabase.co';
+        const SUPABASE_ANON_KEY = '你的公开匿名密钥';
+        
+        // 初始化 Supabase 客户端
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 处理表单提交
+        document.getElementById('surveyForm').addEventListener('submit', async (event) => {
+            event.preventDefault(); // 阻止页面刷新
+
+            const formData = new FormData(event.target);
+            const data = {
+                name: formData.get('name') || '匿名',
+                rating: parseInt(formData.get('rating')),
+                feedback: formData.get('feedback') || '',
+                submitted_at: new Date().toISOString()
+            };
+
+            // 显示提交中状态
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = '正在提交...';
+            messageEl.style.display = 'block';
+            messageEl.style.background = '#fff3cd';
+
+            try {
+                // 插入数据到 Supabase
+                const { error } = await supabase
+                    .from('survey_responses') // 确保你的表名正确
+                    .insert([data]);
+
+                if (error) throw error;
+
+                // 提交成功
+                messageEl.textContent = '✅ 提交成功！感谢您的反馈。';
+                messageEl.style.background = '#d4edda';
+                document.getElementById('surveyForm').reset();
+            } catch (error) {
+                console.error('提交错误:', error);
+                messageEl.textContent = '❌ 提交失败，请稍后重试。错误：' + error.message;
+                messageEl.style.background = '#f8d7da';
+            }
+        });
+    </script>
+</body>
+</html>
