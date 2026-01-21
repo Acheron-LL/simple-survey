@@ -40,14 +40,14 @@
     </form>
     <div id="message"></div>
 
-    <!-- 引入Supabase客户端库 -->
-    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <!-- 使用更可靠的CDN链接 -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.38.4/dist/umd/supabase.min.js"></script>
     <script>
-        // 第二步：你需要在这里填入自己的 Supabase 项目信息
-        const SUPABASE_URL = 'https://你的项目编号.supabase.co';
-        const SUPABASE_ANON_KEY = '你的公开匿名密钥';
+        // 替换为你的Supabase项目信息（这两行必须修改！）
+        const SUPABASE_URL = 'https://ixdyntvyyldnwcaifqv.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publisible_kacvNfoE7AcK2B6mvSIXQ_t-MvL_';
         
-        // 初始化 Supabase 客户端
+        // 初始化Supabase客户端
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // 处理表单提交
@@ -69,9 +69,9 @@
             messageEl.style.background = '#fff3cd';
 
             try {
-                // 插入数据到 Supabase
+                // 插入数据到Supabase
                 const { error } = await supabase
-                    .from('survey_responses') // 确保你的表名正确
+                    .from('survey_responses') // 表名必须和Supabase中的一致
                     .insert([data]);
 
                 if (error) throw error;
