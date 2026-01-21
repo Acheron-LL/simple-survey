@@ -5,534 +5,150 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>简单问卷测试</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f5f7fa;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .container {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            margin-top: 20px;
-        }
-        
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 10px;
-            font-size: 28px;
-        }
-        
-        .subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 30px;
-            font-size: 16px;
-        }
-        
-        .form-group {
-            margin-bottom: 25px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
-            font-size: 15px;
-        }
-        
-        label .required {
-            color: #e74c3c;
-            margin-left: 3px;
-        }
-        
-        input, textarea, select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e6ed;
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background-color: #f8fafc;
-        }
-        
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #3498db;
-            background-color: white;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-        }
-        
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        select {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 16px;
-            padding-right: 40px;
-        }
-        
-        .submit-btn {
-            background: linear-gradient(135deg, #07c160 0%, #06ad56 100%);
-            color: white;
-            border: none;
-            padding: 16px 32px;
-            border-radius: 8px;
-            font-size: 17px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(7, 193, 96, 0.2);
-        }
-        
-        .submit-btn:disabled {
-            background: #95a5a6;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        
-        .submit-btn:disabled:hover {
-            transform: none;
-        }
-        
-        #message {
-            margin-top: 25px;
-            padding: 18px;
-            border-radius: 8px;
-            display: none;
-            font-size: 15px;
-            line-height: 1.5;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .message-success {
-            background-color: #d4edda;
-            color: #155724;
-            border-left: 4px solid #28a745;
-        }
-        
-        .message-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #dc3545;
-        }
-        
-        .message-loading {
-            background-color: #fff3cd;
-            color: #856404;
-            border-left: 4px solid #ffc107;
-        }
-        
-        .message-info {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border-left: 4px solid #17a2b8;
-        }
-        
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #7f8c8d;
-            font-size: 14px;
-            padding-top: 20px;
-            border-top: 1px solid #eee;
-        }
-        
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-            
-            .container {
-                padding: 20px;
-            }
-            
-            h1 {
-                font-size: 24px;
-            }
-            
-            input, textarea, select {
-                padding: 10px 12px;
-                font-size: 16px;
-            }
-        }
+        body { font-family: Arial; max-width: 500px; margin: 40px auto; padding: 20px; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #07c160; color: white; border: none; padding: 12px 20px; cursor: pointer; }
+        button:hover { background: #06ad56; }
+        #message { margin-top: 15px; padding: 10px; display: none; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>📝 简单问卷测试</h1>
-        <p class="subtitle">您的反馈对我们非常重要，感谢您的参与！</p>
-        
-        <form id="surveyForm">
-            <div class="form-group">
-                <label for="name">
-                    您的称呼
-                    <small style="color:#7f8c8d;font-weight:normal;">（可选）</small>
-                </label>
-                <input type="text" id="name" name="name" placeholder="请输入您的姓名或昵称">
-            </div>
-            
-            <div class="form-group">
-                <label for="rating">
-                    您的满意度
-                    <span class="required">*</span>
-                </label>
-                <select id="rating" name="rating" required>
-                    <option value="">请选择满意度评分</option>
-                    <option value="5">非常满意 ⭐⭐⭐⭐⭐</option>
-                    <option value="4">满意 ⭐⭐⭐⭐</option>
-                    <option value="3">一般 ⭐⭐⭐</option>
-                    <option value="2">不满意 ⭐⭐</option>
-                    <option value="1">非常不满意 ⭐</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="feedback">您的意见或建议</label>
-                <textarea id="feedback" name="feedback" 
-                          placeholder="请详细描述您的体验、建议或遇到的问题..."></textarea>
-                <div style="font-size:13px;color:#7f8c8d;margin-top:5px;">
-                    您的建议将帮助我们改进服务
-                </div>
-            </div>
-            
-            <button type="submit" id="submitBtn" class="submit-btn">
-                <span id="btnText">提交问卷</span>
-            </button>
-        </form>
-        
-        <div id="message"></div>
-        
-        <div class="footer">
-            <p>本问卷数据将安全存储于腾讯云数据库</p>
-            <p>如有问题，请刷新页面后重试</p>
+    <h1>📝 简单问卷测试</h1>
+    <form id="surveyForm">
+        <div class="form-group">
+            <label for="name">您的称呼（可选）：</label>
+            <input type="text" id="name" name="name" placeholder="如：张三">
         </div>
-    </div>
+        <div class="form-group">
+            <label for="rating">您的满意度：*</label>
+            <select id="rating" name="rating" required>
+                <option value="">请选择</option>
+                <option value="5">非常满意 ⭐⭐⭐⭐⭐</option>
+                <option value="4">满意 ⭐⭐⭐⭐</option>
+                <option value="3">一般 ⭐⭐⭐</option>
+                <option value="2">不满意 ⭐⭐</option>
+                <option value="1">非常不满意 ⭐</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="feedback">您的意见或建议：</label>
+            <textarea id="feedback" name="feedback" rows="4" placeholder="请告诉我们您的想法..."></textarea>
+        </div>
+        <button type="submit">提交问卷</button>
+    </form>
+    <div id="message"></div>
 
     <!-- 腾讯云开发 SDK -->
-    <script src="https://imgcache.qq.com/qcloud/tcbjs/1.10.0/tcb.js"></script>
+    <script src="https://imgcache.qq.com/qcloud/tcbjs/2.10.2/tcb.js"></script>
     
     <script>
         // ============================================
         // 腾讯云开发配置
-        // 请修改为你的环境ID
         // ============================================
-        const TCB_ENV_ID = 'lelouch-7g07h6d76934cbf';
-        // ============================================
+        const TCB_ENV_ID = 'lelouch-7g07h6d76934cbf'; // 环境ID
         
-        console.log('🚀 问卷系统启动中...');
-        console.log('环境ID:', TCB_ENV_ID);
+        console.log('🚀 初始化腾讯云开发，环境ID:', TCB_ENV_ID);
         
-        // 全局变量
-        let app = null;
-        let db = null;
-        let collection = null;
-        let isInitializing = false;
+        // 初始化
+        const app = tcb.init({
+            env: TCB_ENV_ID,
+            timeout: 10000
+        });
         
-        // 获取DOM元素
-        const form = document.getElementById('surveyForm');
-        const messageEl = document.getElementById('message');
-        const submitBtn = document.getElementById('submitBtn');
-        const btnText = document.getElementById('btnText');
+        // 获取数据库引用
+        const db = app.database();
         
-        // 显示消息
-        function showMessage(text, type = 'info', duration = 0) {
-            messageEl.innerHTML = text;
-            messageEl.className = '';
-            messageEl.classList.add(`message-${type}`);
-            messageEl.style.display = 'block';
-            
-            if (duration > 0) {
-                setTimeout(() => {
-                    messageEl.style.display = 'none';
-                }, duration);
-            }
-        }
-        
-        // 设置按钮状态
-        function setButtonState(loading) {
-            if (loading) {
-                submitBtn.disabled = true;
-                btnText.innerHTML = `<div class="loading-spinner"></div> 提交中...`;
-            } else {
-                submitBtn.disabled = false;
-                btnText.textContent = '提交问卷';
-            }
-        }
-        
-        // 初始化腾讯云开发（包含匿名登录）
-        async function initTCB() {
-            if (isInitializing) {
-                console.log('⏳ 正在初始化中，请等待...');
-                return false;
-            }
-            
-            isInitializing = true;
-            console.log('🔐 开始初始化腾讯云开发...');
-            
-            try {
-                // 1. 初始化SDK
-                app = tcb.init({
-                    env: TCB_ENV_ID,
-                    timeout: 10000
-                });
-                
-                console.log('✅ SDK初始化成功');
-                
-                // 2. 尝试匿名登录
-                console.log('🔑 尝试匿名登录...');
-                showMessage('正在初始化系统，请稍候...', 'loading');
-                
-                let authState = null;
-                try {
-                    // 先检查是否已登录
-                    authState = await app.auth().getLoginState();
-                    console.log('当前登录状态:', authState ? '已登录' : '未登录');
-                    
-                    if (!authState) {
-                        // 未登录，进行匿名登录
-                        console.log('进行匿名登录...');
-                        await app.auth().signInAnonymously();
-                        authState = await app.auth().getLoginState();
-                    }
-                    
-                    if (!authState) {
-                        throw new Error('匿名登录失败，无法获取登录状态');
-                    }
-                    
-                    console.log('✅ 匿名登录成功，用户ID:', authState.user.uid);
-                    
-                } catch (loginError) {
-                    console.error('❌ 登录失败:', loginError);
-                    
-                    if (loginError.message.includes('anonymous') || 
-                        loginError.message.includes('登录方式') ||
-                        loginError.message.includes('not enabled')) {
-                        throw new Error(
-                            '匿名登录功能未启用。<br>' +
-                            '请到腾讯云控制台 → 身份认证 → 登录方式 → 启用"匿名登录"'
-                        );
-                    }
-                    throw loginError;
-                }
-                
-                // 3. 初始化数据库
-                console.log('🗃️ 初始化数据库...');
-                db = app.database();
-                collection = db.collection('survey_responses');
-                
-                // 测试数据库连接
-                try {
-                    const testResult = await collection.limit(1).get();
-                    console.log('✅ 数据库连接测试成功，现有记录数:', testResult.data.length);
-                } catch (dbError) {
-                    console.warn('数据库测试警告:', dbError.message);
-                    // 继续，可能只是集合为空
-                }
-                
-                console.log('🎉 腾讯云开发初始化完成！');
-                showMessage('系统初始化完成，可以开始填写问卷。', 'info', 3000);
-                
-                return true;
-                
-            } catch (error) {
-                console.error('❌ 初始化失败:', error);
-                
-                let errorMsg = '系统初始化失败：';
-                if (error.message.includes('匿名登录功能未启用')) {
-                    errorMsg = error.message;
-                } else if (error.message.includes('env') || error.message.includes('not found')) {
-                    errorMsg = '环境ID错误，请检查配置。当前EnvID: ' + TCB_ENV_ID;
-                } else if (error.message.includes('timeout')) {
-                    errorMsg = '连接超时，请检查网络后刷新页面重试。';
-                } else if (error.message.includes('permission')) {
-                    errorMsg = '权限不足，请检查数据库集合权限设置。';
-                } else {
-                    errorMsg += error.message;
-                }
-                
-                showMessage(errorMsg, 'error', 10000);
-                return false;
-                
-            } finally {
-                isInitializing = false;
-            }
-        }
-        
-        // 确保已登录并初始化
-        async function ensureInitialized() {
-            if (!app) {
-                console.log('⚠️ 系统未初始化，开始初始化...');
-                return await initTCB();
-            }
-            
-            // 检查登录状态
-            try {
-                const authState = await app.auth().getLoginState();
-                if (!authState) {
-                    console.log('⚠️ 登录状态丢失，重新登录...');
-                    await app.auth().signInAnonymously();
-                }
-                return true;
-            } catch (error) {
-                console.error('登录状态检查失败:', error);
-                return await initTCB();
-            }
-        }
-        
-        // 表单提交处理
-        form.addEventListener('submit', async (event) => {
+        // 处理表单提交
+        document.getElementById('surveyForm').addEventListener('submit', async (event) => {
             event.preventDefault();
             
-            // 验证必填字段
-            const rating = document.getElementById('rating').value;
-            if (!rating) {
-                showMessage('请选择满意度评分！', 'error', 3000);
-                document.getElementById('rating').focus();
-                return;
-            }
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = '提交中...';
             
-            // 确保系统已初始化
-            const isReady = await ensureInitialized();
-            if (!isReady) {
-                showMessage('系统初始化失败，请刷新页面重试。', 'error', 5000);
-                return;
-            }
+            const messageEl = document.getElementById('message');
+            messageEl.textContent = '正在提交...';
+            messageEl.style.display = 'block';
+            messageEl.style.background = '#fff3cd';
             
-            // 设置加载状态
-            setButtonState(true);
-            
-            // 收集数据
-            const formData = new FormData(form);
-            const now = new Date();
+            const formData = new FormData(event.target);
             const data = {
-                name: formData.get('name')?.trim() || '匿名用户',
-                rating: parseInt(rating),
-                feedback: formData.get('feedback')?.trim() || '',
-                submitted_at: now,
-                createTime: now,
-                timestamp: now.getTime()
+                name: formData.get('name') || '匿名',
+                rating: parseInt(formData.get('rating')),
+                feedback: formData.get('feedback') || '',
+                submitted_at: new Date(),
+                createTime: new Date()
             };
             
-            console.log('📤 提交数据:', data);
-            showMessage('正在提交您的反馈，请稍候...', 'loading');
+            console.log('提交数据:', data);
             
             try {
-                // 插入数据到数据库
-                console.log('📡 写入数据库...');
-                const startTime = Date.now();
+                // 🔥 关键：先进行匿名登录
+                console.log('尝试匿名登录...');
+                try {
+                    await app.auth().signInAnonymously();
+                    console.log('匿名登录成功');
+                } catch (loginError) {
+                    console.warn('匿名登录警告（可能已登录）:', loginError.message);
+                }
                 
-                const result = await collection.add(data);
-                const endTime = Date.now();
+                // 插入数据
+                console.log('插入数据到数据库...');
+                const result = await db.collection('survey_responses').add(data);
                 
-                console.log(`✅ 提交成功！文档ID: ${result.id}, 耗时: ${endTime - startTime}ms`);
-                
-                // 显示成功消息
-                showMessage(`
-                    <div style="display:flex;align-items:center;gap:10px;">
-                        <div style="font-size:24px;">🎉</div>
-                        <div>
-                            <strong>提交成功！</strong><br>
-                            感谢您的宝贵反馈，我们已经收到您的问卷。
-                        </div>
-                    </div>
-                `, 'success');
-                
-                // 重置表单
-                setTimeout(() => {
-                    form.reset();
-                    // 5秒后隐藏消息
-                    setTimeout(() => {
-                        messageEl.style.display = 'none';
-                    }, 5000);
-                }, 1000);
+                console.log('✅ 提交成功，文档ID:', result.id);
+                messageEl.textContent = '✅ 提交成功！感谢您的反馈。';
+                messageEl.style.background = '#d4edda';
+                event.target.reset();
                 
             } catch (error) {
                 console.error('❌ 提交失败:', error);
                 
                 let errorMsg = '提交失败，请稍后重试。';
-                if (error.message.includes('permission')) {
-                    errorMsg = '数据库权限不足，请检查集合权限设置。';
-                } else if (error.message.includes('network') || error.message.includes('Failed') || error.message.includes('fetch')) {
-                    errorMsg = '网络连接失败，请检查网络或安全域名配置。';
-                } else if (error.message.includes('collection')) {
-                    errorMsg = '数据库集合不存在，请检查集合名称。';
-                } else if (error.message.includes('timeout')) {
-                    errorMsg = '请求超时，请检查网络连接。';
+                if (error.message.includes('INVALID_ENV')) {
+                    errorMsg = '环境ID错误，请联系管理员检查配置。';
+                } else if (error.message.includes('permission')) {
+                    errorMsg = '权限不足，请检查数据库权限设置。';
+                } else if (error.message.includes('anonymous')) {
+                    errorMsg = '匿名登录未启用，请在腾讯云控制台开启匿名登录。';
+                } else if (error.message.includes('network')) {
+                    errorMsg = '网络连接失败，请检查安全域名配置。';
                 }
                 
-                showMessage(`
-                    <strong>${errorMsg}</strong><br>
-                    <small style="opacity:0.8;">错误详情: ${error.message.substring(0, 100)}</small>
-                `, 'error');
+                messageEl.innerHTML = `
+                    ❌ ${errorMsg}<br>
+                    <small style="opacity:0.7;">错误: ${error.message.substring(0, 100)}</small>
+                `;
+                messageEl.style.background = '#f8d7da';
                 
             } finally {
-                // 恢复按钮状态
-                setButtonState(false);
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalText;
             }
         });
         
-        // 页面加载时初始化
+        // 页面加载时测试连接
         window.addEventListener('load', async () => {
-            console.log('📄 页面加载完成，开始初始化系统...');
+            console.log('页面加载完成');
             
-            // 延迟初始化，让页面先显示
-            setTimeout(async () => {
-                await initTCB();
-            }, 500);
+            try {
+                // 测试匿名登录
+                await app.auth().signInAnonymously();
+                console.log('✅ 页面初始化：匿名登录成功');
+                
+                // 测试数据库连接
+                const testResult = await db.collection('survey_responses').limit(1).get();
+                console.log('✅ 数据库连接成功，现有记录:', testResult.data.length);
+                
+            } catch (error) {
+                console.warn('初始化警告（可能正常）:', error.message);
+            }
         });
         
-        console.log('🎯 问卷系统脚本加载完成');
+        console.log('问卷系统初始化完成');
     </script>
 </body>
 </html>
